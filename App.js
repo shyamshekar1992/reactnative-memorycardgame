@@ -67,28 +67,13 @@ export default function App() {
 
     setCards(updatedCards);
   };
-  const celebrationStyle = {
-    transform: [
-      {
-        scale: celebrationAnimation.interpolate({
-          inputRange: [0, 0.5, 1],
-          outputRange: [1, 1.2, 1],
-        }),
-      },
-    ],
-  };
+
   const checkMatch = (flippedCards) => {
     const [card1, card2] = flippedCards;
   
     if (card1.symbol === card2.symbol) {
       setPlayer1Score((prevScore) => prevScore + 20);
-      Animated.timing(celebrationAnimation, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: false, // 'false' for animated styles
-      }).start(() => {
-        celebrationAnimation.setValue(0);
-      });
+  
       // Update the matching cards in the state
       setTimeout(() => {
         const resetCards = cards.map((row) =>
@@ -150,9 +135,7 @@ export default function App() {
           </View>
         ))}
          <Text style={styles.scoreText}>Player Score: {player1Score}</Text>
-        <TouchableOpacity 
-        
-        style={styles.resetButton} onPress={resetGame}>
+        <TouchableOpacity style={styles.resetButton} onPress={resetGame}>
           <Text style={styles.buttonText}>Reset Game</Text>
         </TouchableOpacity>
       </View>
